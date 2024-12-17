@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebApplication20.DangKy>
+
+@{
+    ViewData["Title"] = "Danh sách học phần đã đăng ký";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Danh sách học phần đã đăng ký</h2>
+
+    <!-- Thông báo thành công và lỗi -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Bảng danh sách học phần -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Ngày đăng ký</th>
+                    <th>Mã học phần</th>
+                    <th>Tên học phần</th>
+                    <th>Số tín chỉ</th>
+                    <th class="text-center">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dangKy in Model)
+                {
+                    @foreach (var chiTiet in dangKy.ChiTietDangKys)
+                    {
+                        <tr>
+                            <td>@dangKy.NgayDK.ToShortDateString()</td>
+                            <td>@chiTiet.HocPhan.MaHP</td>
+                            <td>@chiTiet.HocPhan.TenHP</td>
+                            <td>@chiTiet.HocPhan.SoTinChi</td>
+                            <td class="text-center">
+                                <form asp-action="XoaDangKy" method="post" style="display: inline;">
+                                    <input type="hidden" name="maDK" value="@dangKy.MaDK" />
+                                    <input type="hidden" name="maHP" value="@chiTiet.MaHP" />
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Bạn có chắc chắn muốn hủy đăng ký học phần này?')">
+                                        <i class="bi bi-trash"></i> Hủy
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Nút đăng ký thêm học phần -->
+    <div class="text-end mt-4">
+        <a asp-action="ListHP" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Đăng ký thêm học phần
+        </a>
+    </div>
+</div>

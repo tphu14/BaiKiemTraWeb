@@ -1,0 +1,57 @@
+﻿@model WebApplication20.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Chi tiết Sinh Viên";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-info text-white text-center">
+            <h3><i class="bi bi-person-badge"></i> Thông Tin Chi Tiết Sinh Viên</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <!-- Cột hình ảnh -->
+                <div class="col-md-4 text-center mb-3">
+                    <img src="~/@Model.Hinh" alt="Ảnh sinh viên" class="img-fluid rounded-circle shadow" style="width: 200px; height: 200px; object-fit: cover;" />
+                </div>
+
+                <!-- Cột thông tin sinh viên -->
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-4"><i class="bi bi-card-list"></i> Mã Sinh Viên:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-primary">@Model.MaSV</span></dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-person"></i> Họ Tên:</dt>
+                        <dd class="col-sm-8">@Model.HoTen</dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-gender-ambiguous"></i> Giới Tính:</dt>
+                        <dd class="col-sm-8">@Model.GioiTinh</dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-calendar"></i> Ngày Sinh:</dt>
+                        <dd class="col-sm-8">@Model.NgaySinh.ToShortDateString()</dd>
+
+                        <dt class="col-sm-4"><i class="bi bi-mortarboard"></i> Ngành Học:</dt>
+                        <dd class="col-sm-8">@Model.NganhHoc.TenNganh</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer text-center">
+            <a asp-action="Edit" asp-route-id="@Model.MaSV" class="btn btn-warning">
+                <i class="bi bi-pencil-square"></i> Chỉnh sửa
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại danh sách
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Thêm Bootstrap CSS và Icons -->
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
+}

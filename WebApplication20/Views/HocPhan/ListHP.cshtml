@@ -1,0 +1,47 @@
+﻿@model IEnumerable< WebApplication20.Models.HocPhan>
+
+@{
+    ViewData["Title"] = "Danh Sách Học Phần";
+}
+
+<h2 class="text-center">DANH SÁCH HỌC PHẦN</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã Học Phần</th>
+            <th>Tên Học Phần</th>
+            <th>Số Tín Chỉ</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaHP</td>
+                <td>@item.TenHP</td>
+                <td>@item.SoTinChi</td>
+                <td>
+                    <form method="post" asp-action="DangKy" asp-controller="HocPhan">
+                        <input type="hidden" name="maHP" value="@item.MaHP" />
+                        <button type="submit" class="btn btn-success">Đăng Ký</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<footer class="text-center mt-4">
+    &copy; 2024 - Your Name
+</footer>

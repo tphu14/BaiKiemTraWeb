@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication20</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom shadow-sm mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Quản Lý Sinh Viên</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                @if (Context.Session.GetString("MaSV") != null)
+                {
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="SinhVien" asp-action="Index">Danh Sách Sinh Viên</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="HocPhan" asp-action="ListHP">Danh Sách Học Phần</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="HocPhan" asp-action="DaDangKy">Học phần đã đăng ký</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item me-2">
+                                <a class="btn btn-primary" asp-controller="SinhVien" asp-action="Create">Thêm Sinh Viên</a>
+                            </li>
+                            <li class="nav-item me-2">
+                                <span class="navbar-text">Xin chào, @Context.Session.GetString("MaSV")</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-danger" asp-controller="NguoiDung" asp-action="DangXuat">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container text-center">
+            &copy; 2024 - Quản Lý Sinh Viên
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
